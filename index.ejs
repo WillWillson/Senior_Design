@@ -1,0 +1,117 @@
+<!-- submitFile.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit File</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #3498db;
+            color: #fff;
+            text-align: center;
+            padding: 1em;
+        }
+
+        section {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #3498db;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>FPGA Cryptography - Uploads</h1>
+    </header>
+
+    <section>
+        <h2>Submit File</h2>
+        <form id="uploadForm" >
+            <input type="file" id="myFiles" accept="image/*" multiple />
+            <button>Submit</button>
+        </form>
+        <h3></h3>
+        <h4></h4>
+        <script>
+            const form = document.getElementById('uploadForm')
+
+            const sendFiles = async () => {
+                // Object
+                const myFiles = document.getElementById('myFiles').files
+
+                const formData = new FormData()
+
+                Object.keys(myFiles).forEach(key => {
+                    formData.append(myFiles.item(key).name, myFiles.item(key))
+                })
+
+                const response = await fetch('http://138.47.150.6:3000/upload', {
+                    method: 'POST',
+                    body: formData
+                })
+
+                const json = await response.json()
+
+                const h3 = document.querySelector('h3')
+                h3.textContent = `Status: ${json?.status}`
+
+                const h4 = document.querySelector('h4')
+                h4.textContent = json?.message
+
+                console.log(json)
+            }
+
+            form.addEventListener('submit', (e) => {
+                e.preventDefault()
+                sendFiles()
+            })
+        </script>
+
+        <form action="/logout?_method=DELETE" method="POST">
+            <button type="submit">Log Out</button>
+        </form>
+	<a href="/download">View Files</a>
+</body>
+
+
+
+</html>
