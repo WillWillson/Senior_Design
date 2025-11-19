@@ -1,0 +1,40 @@
+
+    AES Encryption Algorithm Skeleton
+
+Step 0: Break File up into bytes and orient into valid input (128, 192, or 256 bit) (column-major ordered matrix)
+                (4x4 for 128 bit, 4x6 for 192 bit, 4x8 for 256 bit; always 4 rows no matter block size)
+
+Step 1: Create the Encryption Key (128, 192, or 256 bit)
+        -- KeyGeneration
+
+Step 2: Generate Round Keys from the Encryption Key (11 for 128 bit, 13 for 192 bit, or 15 for 256 bit)
+        -- KeyExpansion
+
+Step 3: Initial round: 
+        -- AddRoundKey
+
+Step 4: Middle rounds: Implement 9 times for 128 bit keys, 11 for 192, and 13 for 256
+        -- SubBytes
+        -- ShiftRows
+        -- MixColumns
+        -- AddRoundKey
+
+Step 5: Final Round
+        -- SubBytes
+        -- ShiftRows
+        -- AddRoundKey
+
+Step 6: Take output and convert back into encrypted file
+
+Algorithms to make:             ************** MAKE SURE TO CHECK DOCUMENTATION FOR DIFFERENCES BETWEEN 128 BIT AND 256 BIT ****************************
+        ************* REWRITE TIME ****************
+    -- KeyGeneration    *** See Official AES Documentation for this ***
+    -- KeyExpansion     DONE **REWRITE**
+    -- AddRoundKey      DONE **REWRITE**
+    -- SubBytes         DONE
+    -- ShiftRows        DONE
+    -- MixColumns       DONE **REWRITE**
+
+***** NOTE *****
+It is possible to do this entire algorithm in a one-dimensional array (see NIST guideline 4.1 for more info)
+        -- probably a good idea to do to save computational power
